@@ -1,7 +1,6 @@
 import "./styles/final-score.css";
-const correctCount = 0;
-const totalCount = 0;
-export const FunctionalFinalScore = () => (
+const totalCount = 4;
+export const FunctionalFinalScore = ({ correctCount }) => (
   <div id="final-score">
     <h1>Your Final Score Was</h1>
     <div id="score">
