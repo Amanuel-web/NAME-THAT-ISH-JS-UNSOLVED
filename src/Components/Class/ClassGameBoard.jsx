@@ -4,50 +4,32 @@ import "./styles/game-board.css";
 export class ClassGameBoard extends Component {
   state = {
     userInput: "",
-    currentFishIndex: 0,
+  };
+
+  handleAnswer = (answer) => {
+    const { fishData, setCorrectCount, setIncorrectCount } = this.props;
+    if (answer.toLowerCase() === fishData.name) {
+      setCorrectCount((prev) => prev + 1);
+    } else {
+      setIncorrectCount((prev) => prev + 1);
+    }
   };
 
   handleScore = (event) => {
     event.preventDefault();
-    const {
-      initialFishes,
-      setCorrectCount,
-      setIncorrectCount,
-      setAnswersLeft,
-      answersLeft,
-      checkGameEnd,
-    } = this.props;
-    const { currentFishIndex, userInput } = this.state;
-    const currentFish = initialFishes[currentFishIndex];
-
-    if (userInput.toLowerCase() === currentFish.name) {
-      setCorrectCount(1);
-    } else {
-      setIncorrectCount(1);
-    }
-
-    const newAnswers = answersLeft.filter((name) => name !== currentFish.name);
-    setAnswersLeft(newAnswers);
-
-    this.setState(
-      {
-        userInput: "",
-        currentFishIndex: (currentFishIndex + 1) % initialFishes.length,
-      },
-      () => checkGameEnd()
-    );
+    const { userInput } = this.state;
+    this.handleAnswer(userInput);
+    this.setState({
+      userInput: "",
+    });
   };
 
   render() {
-    const { initialFishes } = this.props;
-    const { currentFishIndex } = this.state;
+    const { fishData } = this.props;
     return (
       <div id="game-board">
         <div id="fish-container">
-          <img
-            src={initialFishes[currentFishIndex].url}
-            alt={initialFishes[currentFishIndex].name}
-          />
+          <img src={fishData.url} alt={fishData.name} />
         </div>
         <form id="fish-guess-form" onSubmit={this.handleScore}>
           <label htmlFor="fish-guess">What kind of fish is this?</label>
