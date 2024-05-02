@@ -7,18 +7,17 @@ export class ClassGameBoard extends Component {
   };
 
   handleAnswer = (answer) => {
-    const { fishData, setCorrectCount, setIncorrectCount } = this.props;
-    if (answer.toLowerCase() === fishData.name) {
-      setCorrectCount((prev) => prev + 1);
-    } else {
-      setIncorrectCount((prev) => prev + 1);
-    }
+    const { fishData, handleStateChanges } = this.props;
+    const propName =
+      answer.toLowerCase() === fishData.name
+        ? "correctCount"
+        : "incorrectCount";
+    handleStateChanges(propName);
   };
 
   handleScore = (event) => {
     event.preventDefault();
-    const { userInput } = this.state;
-    this.handleAnswer(userInput);
+    this.handleAnswer(this.state.userInput);
     this.setState({
       userInput: "",
     });

@@ -33,8 +33,7 @@ export class ClassApp extends Component {
 
             <ClassGameBoard
               fishData={initialFishes[fishIndex]}
-              setCorrectCount={this.handleStateChanges}
-              setIncorrectCount={this.handleStateChanges}
+              handleStateChanges={this.handleStateChanges}
             />
           </>
         )}
